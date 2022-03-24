@@ -8,7 +8,7 @@ from classes.Charmeleon import Charmeleon
 
 name = 'Yellow Thing'
 maxHealth = 60
-energyType = EnergyType('Lightning', 10)
+energyType = EnergyType('Lightning', 0)
 attacks = [Attack('Electric Ring', 50), Attack('Pika Punch', 20)]
 weakness = Weakness(EnergyType('Fire', 0), 1.5)
 resistance = Resistance(EnergyType('Fighting', 0), 20)
@@ -24,6 +24,7 @@ resistance = Resistance(EnergyType('Lightning', 10), 10)
 
 Pokemon.list.append(Charmeleon(name, maxHealth, energyType, attacks, weakness, resistance))
 
-Pokemon.list[0].Attack(0, Pokemon.list[1])
-Pokemon.list[1].Attack(1, Pokemon.list[0])
-Pokemon.list[1].Attack(1, Pokemon.list[0])
+Pokemon.list[0].Attack('Electric Ring', Pokemon.list[1])
+Pokemon.list[1].Attack('Flare', Pokemon.list[0])
+Pokemon.list[1].Attack('Flare', Pokemon.list[0])
+

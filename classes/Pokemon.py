@@ -11,19 +11,29 @@ class Pokemon:
         self.weakness = weakness
         self.resistance = resistance
     def Attack(self, attack, target):
-        print(target.name+ " has "+ str(target.health) + " health.")
-        print(self.name + " attacks " + target.name + " with " + self.attacks[attack].name + ".")
-        dmg = self.attacks[attack].value
-        if (self.energyType.name == target.weakness.energyType.name):
-            dmg *= target.weakness.multiplier
-        if (self.energyType.name == target.resistance.energyType.name):
-            dmg -= target.resistance.value
-        target.health -= dmg
-        print(target.name+ " has "+ str(target.health) + " health.\n")
-        if target.health <= 0:
+        for obj in self.attacks:
+            if obj.name == attack:
+                attack = obj
+                break
+        if type(attack) == str:
+            print('Unknown attack.\n')
+            return False
+        print(target.name+ " has "+ str(self.health) + " health.")
+        print(self.name + " attacks " + target.name + " with " + attack.name + ".")
+        target.takeDmg(self.energyType, attack)
+    def takeDmg(self, energyType, attack):
+        dmg = attack.value
+        if (energyType.name == self.weakness.energyType.name):
+            dmg *= self.weakness.multiplier
+        if (energyType.name == self.resistance.energyType.name):
+            dmg -= self.resistance.value
+        self.health -= dmg
+        print(self.name+ " has "+ str(self.health) + " health.\n")
+        if self.health <= 0:
             Pokemon.amount = Pokemon.amount - 1
-            print(target.name+' died!')
-            Pokemon.list.pop(Pokemon.list.index(target)) # killing the target
+            print(self.name+' died!')
+            Pokemon.list.pop(Pokemon.list.index(self)) # killing the target
+        
     @staticmethod
     def getPopulation():
         return Pokemon.amount
