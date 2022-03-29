@@ -16,10 +16,7 @@ class Pokemon:
                 attack = obj
                 break
         if type(attack) == str:
-            print('Unknown attack.\n')
             return False
-        print(target.name+ " has "+ str(self.health) + " health.")
-        print(self.name + " attacks " + target.name + " with " + attack.name + ".")
         target.takeDmg(self.energyType, attack)
     def takeDmg(self, energyType, attack):
         dmg = attack.value
@@ -28,12 +25,17 @@ class Pokemon:
         if (energyType.name == self.resistance.energyType.name):
             dmg -= self.resistance.value
         self.health -= dmg
-        print(self.name+ " has "+ str(self.health) + " health.\n")
         if self.health <= 0:
             Pokemon.amount = Pokemon.amount - 1
-            print(self.name+' died!')
             Pokemon.list.pop(Pokemon.list.index(self)) # killing the target
         
     @staticmethod
     def getPopulation():
         return Pokemon.amount
+    @staticmethod
+    def find(name):
+        for pokemon in Pokemon.list:
+            if pokemon.name == name:
+                return pokemon
+        return None
+        
